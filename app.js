@@ -1,10 +1,11 @@
 const BASE_URL="https://latest.currency-api.pages.dev/v1/currencies/";
 
 const dropdowns = document.querySelectorAll("select");
-const btn=document.querySelector(".convertbtn");
+const btn=document.querySelector(".coverbtn");
 const fromcurr=document.querySelector(".from select")
 const tocurr=document.querySelector(".to select")
 const msg=document.querySelector(".msg");
+const exchangebtn=document.querySelector(".exchangebtn");
 
 
 for (let select of dropdowns) {
@@ -20,6 +21,7 @@ for (let select of dropdowns) {
     updateFlag(evt.target);
     })
 };
+
 
 
 // for (let select of dropdowns) {
@@ -55,10 +57,18 @@ btn.addEventListener("click",async(evt)=>{
     let rate=data[from][to];
     // console.log(rate);
     let finalamount=rate*amount.value;
+    finalamount = finalamount.toFixed(2);
     // console.log(finalamount);
     msg.innerHTML=`${amtval}${fromcurr.value}=${finalamount  }${tocurr.value}`;
 })
 
-const swapBtn = document.querySelector(".fa-arrow-right-arrow-left");
+exchangebtn.addEventListener("click",(evt)=>{
+    evt.preventDefault();
+    let temp=fromcurr.value;
+    fromcurr.value=tocurr.value;
+    tocurr.value=temp;
+    updateFlag(fromcurr);
+    updateFlag(tocurr);
+})
 
 
